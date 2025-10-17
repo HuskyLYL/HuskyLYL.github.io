@@ -32,7 +32,7 @@ const YukinaConfig: Configuration = {
   ],
 
   username: "HuskyLYL",
-  sign: "Ad Astra Per Aspera.",
+  sign: "今天学点啥呢.",
   avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
   socialLinks: [
     {
