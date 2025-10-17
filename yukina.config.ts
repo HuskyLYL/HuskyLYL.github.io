@@ -2,7 +2,7 @@ import I18nKeys from "./src/locales/keys";
 import type { Configuration } from "./src/types/config";
 
 const YukinaConfig: Configuration = {
-  title: "Yukina",
+  title: "HuskyLYL",
   subTitle: "Yukina Template Demo Site",
   brandTitle: "Yukina",
 
@@ -31,7 +31,7 @@ const YukinaConfig: Configuration = {
     },
   ],
 
-  username: "WhitePaper 白芷",
+  username: "HuskyLYL",
   sign: "Ad Astra Per Aspera.",
   avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
   socialLinks: [
