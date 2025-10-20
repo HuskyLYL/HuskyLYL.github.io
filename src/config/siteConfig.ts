@@ -5,8 +5,8 @@ import { fontConfig } from "./fontConfig";
 const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 
 export const siteConfig: SiteConfig = {
-  title: "The Husky Log",
-  subtitle: "HuskyLYL Studio",
+  title: "HuskyLYL Studio",
+  subtitle: "The Husky Log",
   description:
     "团子的小窝",
   keywords: [
@@ -104,15 +104,15 @@ export const siteConfig: SiteConfig = {
         // 主页显示自定义文本（全局开关）
         enable: true,
         // 主页横幅主标题
-        title: "Lovely firefly!",
+        title: "The Husky Log",
         // 主页横幅副标题
         subtitle: [
-          "In Reddened Chrysalis, I Once Rest",
-          "From Shattered Sky, I Free Fall",
-          "Amidst Silenced Stars, I Deep Sleep",
-          "Upon Lighted Fyrefly, I Soon Gaze",
-          "From Undreamt Night, I Thence Shine",
-          "In Finalized Morrow, I Full Bloom",
+          "I am HuskyLYL, a student at Huazhong University of Science and Technology. I am here to share my daily life and technology.",
+          //"From Shattered Sky, I Free Fall",
+          //"Amidst Silenced Stars, I Deep Sleep",
+          //"Upon Lighted Fyrefly, I Soon Gaze",
+          //"From Undreamt Night, I Thence Shine",
+          //"In Finalized Morrow, I Full Bloom",
         ],
         typewriter: {
           enable: true, // 启用副标题打字机效果
@@ -121,20 +121,20 @@ export const siteConfig: SiteConfig = {
           pauseTime: 2000, // 完全显示后的暂停时间（毫秒）
         },
       },
-      credit: {
-        enable: {
-          desktop: true, // 桌面端显示横幅图片来源文本
-          mobile: false, // 移动端显示横幅图片来源文本
-        },
-        text: {
-          desktop: "晚晚喵", // 桌面端要显示的来源文本
-          mobile: "Mobile Credit", // 移动端要显示的来源文本
-        },
-        url: {
-          desktop: "https://www.pixiv.net/artworks/135490046", // 桌面端原始艺术品或艺术家页面的 URL 链接
-          mobile: "", // 移动端原始艺术品或艺术家页面的 URL 链接
-        },
-      },
+      //credit: {
+      //  enable: {
+      //    desktop: true, // 桌面端显示横幅图片来源文本
+      //    mobile: false, // 移动端显示横幅图片来源文本
+      //  },
+      //  text: {
+      //    desktop: "晚晚喵", // 桌面端要显示的来源文本
+      //    mobile: "Mobile Credit", // 移动端要显示的来源文本
+      //  },
+      //  url: {
+      //    desktop: "https://www.pixiv.net/artworks/135490046", // 桌面端原始艺术品或艺术家页面的 URL 链接
+       //   mobile: "", // 移动端原始艺术品或艺术家页面的 URL 链接
+       // },
+      //},
       navbar: {
         transparentMode: "semifull", // 导航栏透明模式："semi" 半透明加圆角，"full" 完全透明，"semifull" 动态透明
       },
