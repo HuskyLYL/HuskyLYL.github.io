@@ -42,7 +42,7 @@ export const siteConfig: SiteConfig = {
   // { type: "image", value: "https://example.com/logo.png", alt: "Firefly Logo" }
   logoIcon: {
     type: "image",
-    value: "/assets/images/LiuYingPure3.svg",
+    value: "/assets/images/wendi.ico",
     alt: "🍀",
   },
 
