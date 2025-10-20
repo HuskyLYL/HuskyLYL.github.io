@@ -1,0 +1,1 @@
+import{s}from"./siteConfig.BkWEP7Yh.js";import"./navBarConfig.kp_eansV.js";import{j as t,z as e,a as r,e as n}from"./zh_TW.D48XCwBq.js";const i=n,_={en:n,en_us:n,en_gb:n,en_au:n,zh_cn:r,zh_tw:e,ja:t,ja_jp:t};function u(a){return _[a.toLowerCase()]||i}function p(a){const o=s.lang||"en";return u(o)[a]}export{p as i};
