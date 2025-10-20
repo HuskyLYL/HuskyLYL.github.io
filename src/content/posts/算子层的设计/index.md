@@ -4,7 +4,7 @@ published: 2025-10-20
 description: 设计了算子层，来对我们的tensor量进行处理
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
-draft: true
+draft: false
 cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
