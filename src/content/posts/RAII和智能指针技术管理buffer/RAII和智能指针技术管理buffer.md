@@ -2,8 +2,8 @@
 title: 自上而下的RAII和智能指针技术管理buffer
 published: 2025-10-18
 description: 如何利用C++智能指针对如何管理CPU和GPU上的内存，防止内存泄漏的总结.
-tags: [AI Infra, C++]
-category: Infra
+tags: [AI Infra, C++, miniInfer]
+category: miniInfer
 draft: false
 cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
@@ -201,8 +201,12 @@ void Buffer::copy_from(const Buffer* buffer) const
 
 - 内存管理与分配器确保全局唯一性，static静态成员：便于管理全局唯一的buffer空间
 - 智能指针设计buffer，配合内存分配器析构，确保不会出现内存泄漏等问题
+  - Buffer类是自己不掉用了会调用内存分配器去释放
+  - 所以要确保内存分配器全局唯一
+  - 不是内存分配器主动去释放，而是智能指针在析构的时候被动的调用分配器去释放
 
 
+- 在内存分配器每次检查碎片空间的时候，此时free的空间不受buffer管理，所以要手动释放空间
 
 
 
