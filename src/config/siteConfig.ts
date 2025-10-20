@@ -5,15 +5,14 @@ import { fontConfig } from "./fontConfig";
 const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 
 export const siteConfig: SiteConfig = {
-  title: "Firefly",
-  subtitle: "Demo site",
+  title: "The Husky Log",
+  subtitle: "HuskyLYL Studio",
   description:
-    "Firefly 是一款基于 Astro 框架开发的清新美观且现代化个人博客主题，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。",
+    "团子的小窝",
   keywords: [
-    "Firefly",
-    "Fuwari",
-    "Astro",
-    "ACGN",
+    "吕彦良",
+    "HuskyLYL",
+    "AI Infra",
     "博客",
     "技术博客",
     "静态博客",
@@ -22,15 +21,15 @@ export const siteConfig: SiteConfig = {
   lang: SITE_LANG,
 
   themeColor: {
-    hue: 155, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-    fixed: false, // 对访问者隐藏主题色选择器
+    hue: 40, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
+    fixed: true, // 对访问者隐藏主题色选择器
     defaultMode: "system", // 默认模式："light" 浅色，"dark" 深色，"system" 跟随系统
   },
 
   favicon: [
     // 留空以使用默认 favicon
     {
-      src: "/assets/images/favicon.ico", // 图标文件路径
+      src: "/assets/images/wendi.ico", // 图标文件路径
       theme: "light", // 可选，指定主题 'light' | 'dark'
       sizes: "32x32", // 可选，图标大小
     },
