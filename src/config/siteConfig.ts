@@ -104,7 +104,7 @@ export const siteConfig: SiteConfig = {
         // 主页显示自定义文本（全局开关）
         enable: true,
         // 主页横幅主标题
-        title: "HuskyLYL Studio!",
+        title: "Lovely firefly!",
         // 主页横幅副标题
         subtitle: [
           "In Reddened Chrysalis, I Once Rest",
@@ -131,7 +131,7 @@ export const siteConfig: SiteConfig = {
           mobile: "Mobile Credit", // 移动端要显示的来源文本
         },
         url: {
-          desktop: "/assets/images/b1.jpg", // 桌面端原始艺术品或艺术家页面的 URL 链接
+          desktop: "https://www.pixiv.net/artworks/135490046", // 桌面端原始艺术品或艺术家页面的 URL 链接
           mobile: "", // 移动端原始艺术品或艺术家页面的 URL 链接
         },
       },
