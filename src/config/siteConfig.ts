@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
 
   // 追番配置
   bangumi: {
-    userId: "1163581", // 在此处设置你的Bangumi用户ID
+    userId: "", // 在此处设置你的Bangumi用户ID
   },
 
   // 文章页底部的"上次编辑时间"卡片开关
@@ -70,7 +70,7 @@ export const siteConfig: SiteConfig = {
     // 默认布局模式："list" 列表模式（单列布局），"grid" 网格模式（双列布局）
     defaultMode: "list",
     // 是否允许用户切换布局
-    allowSwitch: true,
+    allowSwitch: false,
   },
 
   // 分页配置
@@ -88,9 +88,9 @@ export const siteConfig: SiteConfig = {
     // 背景图片配置
     src: {
       // 桌面背景图片
-      desktop: "/assets/images/d1.webp",
+      desktop: "/assets/images/b1.jpg",
       // 移动背景图片
-      mobile: "/assets/images/m1.webp",
+      mobile: "/assets/images/b1.jpg",
     },
 
     // 图片位置
@@ -104,7 +104,7 @@ export const siteConfig: SiteConfig = {
         // 主页显示自定义文本（全局开关）
         enable: true,
         // 主页横幅主标题
-        title: "Lovely firefly!",
+        title: "HuskyLYL Studio!",
         // 主页横幅副标题
         subtitle: [
           "In Reddened Chrysalis, I Once Rest",
@@ -131,7 +131,7 @@ export const siteConfig: SiteConfig = {
           mobile: "Mobile Credit", // 移动端要显示的来源文本
         },
         url: {
-          desktop: "https://www.pixiv.net/artworks/135490046", // 桌面端原始艺术品或艺术家页面的 URL 链接
+          desktop: "/assets/images/b1.jpg", // 桌面端原始艺术品或艺术家页面的 URL 链接
           mobile: "", // 移动端原始艺术品或艺术家页面的 URL 链接
         },
       },
