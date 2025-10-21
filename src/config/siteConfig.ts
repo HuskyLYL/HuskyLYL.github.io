@@ -107,7 +107,7 @@ export const siteConfig: SiteConfig = {
         title: "The Husky Log",
         // 主页横幅副标题
         subtitle: [
-          "Hello! I’m HuskyLYL from Huazhong University of Science and Technology, sharing life & tech.",
+          "welcome! I’m HuskyLYL from Huazhong University of Science and Technology",
           //"From Shattered Sky, I Free Fall",
           //"Amidst Silenced Stars, I Deep Sleep",
           //"Upon Lighted Fyrefly, I Soon Gaze",
