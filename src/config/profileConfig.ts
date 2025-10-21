@@ -5,11 +5,11 @@ export const profileConfig: ProfileConfig = {
   name: "HuskyLYL",
   bio: "今天学点啥?",
   links: [
-    {
-      name: "Bilibli",
-      icon: "fa6-brands:bilibili",
-      url: "https://space.bilibili.com/529728307",
-    },
+   // {
+   //   name: "Bilibli",
+   //   icon: "fa6-brands:bilibili",
+   //   url: "https://space.bilibili.com/529728307",
+   // },
     {
       name: "GitHub",
       icon: "fa6-brands:github",
