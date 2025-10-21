@@ -60,9 +60,9 @@ export const siteConfig: SiteConfig = {
   // 页面开关配置 - 控制特定页面的访问权限
   pages: {
     anime: false, // 追番页面开关，设为false时访问/anime/会返回404
-    projects: true, // 项目展示页面开关，设为false时访问/projects/会返回404
+    projects: false, // 项目展示页面开关，设为false时访问/projects/会返回404
     timeline: true, // 时间线页面开关，设为false时访问/timeline/会返回404
-    skills: true, // 技能页面开关，设为false时访问/skills/会返回404
+    skills: false, // 技能页面开关，设为false时访问/skills/会返回404
   },
 
   // 文章列表布局配置
