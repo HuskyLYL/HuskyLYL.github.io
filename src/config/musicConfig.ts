@@ -3,7 +3,7 @@ import type { MusicPlayerConfig } from "../types/config";
 // 音乐播放器配置
 export const musicPlayerConfig: MusicPlayerConfig = {
   // 基础功能开关
-  enable: true, // 启用音乐播放器功能
+  enable: false, // 启用音乐播放器功能
 
   // 播放器模式配置
   mode: "local", // 播放器模式："local" 本地音乐，"meting" 在线音乐
