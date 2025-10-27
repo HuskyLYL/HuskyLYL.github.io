@@ -4,7 +4,8 @@ published: 2025-10-27
 description: 从llama的结构出发，将model载入miniInfer
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
-draft: false
+draft: true
 cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
+## 1.章节
