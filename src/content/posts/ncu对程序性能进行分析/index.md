@@ -5,7 +5,7 @@ description: 如何利用ncu去查看我们miniInfer中的算子表现效果
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-cover: ./assets/image-20251024160841841.png
+cover: ./image-20251024160841841.png
 ---
 
 ## 1.生成启动报告
@@ -29,7 +29,7 @@ sudo /usr/local/cuda/bin/ncu     --kernel-name "regex:(?i).*rmsnorm.*"  -o profi
 
 接着，我们可以调用我们的可视化ui来对程序进行性能分析。
 
-![image-20251024162209423](assets/image-20251024162209423.png)
+![image-20251024162209423](image-20251024162209423.png)
 
 1. `Elapsed Cycle` 表示核函数执行过程中经过的总周期数目，Duration,核函数执行的时间总数
 
@@ -48,7 +48,7 @@ sudo /usr/local/cuda/bin/ncu     --kernel-name "regex:(?i).*rmsnorm.*"  -o profi
 
 总结：内存的利用率，都是实际的平均访问数据宽带/理论最大的数据访问宽带，就是代表该内存有没有高负荷的运转
 
-![image-20251024163645909](assets/image-20251024163645909.png)
+![image-20251024163645909](image-20251024163645909.png)
 
 1. `Theoretical Occupancy` 理想情况下，每个SM能够主流的线程上限比（主要与block size）的大小相关
 2. `Achieved Occupancy` 实际上，每个sm上活跃的线程数目
