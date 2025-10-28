@@ -5,7 +5,6 @@ description: 在miniInfer上编写RMSNorm的接口
 tags: [AI Infra, C++, miniInfer,算子]
 category: miniInfer
 draft: false
-cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
 ## 1.RMSNorm介绍

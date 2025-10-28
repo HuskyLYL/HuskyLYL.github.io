@@ -5,7 +5,6 @@ description: 如何利用C++智能指针对如何管理CPU和GPU上的内存，�
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
 ## 1.内存分配器管理

@@ -5,7 +5,9 @@ description: 动手写一个transformer，主要加深对模型的理解
 tags: [AI Infra, LLM]
 category: LLM
 draft: false
-cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
+image:
+  url: './image-20251025143144423.png'
+  alt: 'transformer架构'
 ---
 
 ## 1.transformer结构图

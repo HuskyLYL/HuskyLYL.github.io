@@ -5,7 +5,6 @@ description: 大模型推理的核心
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
 ## 1. 为什么需要在buffer的基础上封装tensor
