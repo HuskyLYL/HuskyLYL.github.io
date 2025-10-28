@@ -10,7 +10,7 @@ cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img
 
 ## 1.transformer结构图
 
-<img src="./assets/image-20251025143144423.png" alt="image-20251025143144423" style="zoom:60%;" />
+<img src="./image-20251025143144423.png" alt="image-20251025143144423" style="zoom:60%;" />
 
   Transformer是目前很多大模型的基础，当我们想要为一个大模型打造推理系统的时候，了解它的模型结构是推理加速不可或缺的。下面我们将手写一个transformer以此来巩固我们的知识。
 
@@ -167,7 +167,7 @@ $$
 
 ## 7. encoder
 
-<img src="assets/image-20251025195317276.png" alt="image-20251025195317276" style="zoom:110%;" />
+<img src="image-20251025195317276.png" alt="image-20251025195317276" style="zoom:110%;" />
 
 ```python
 class EncoderLayer(nn.Module):
@@ -226,7 +226,7 @@ class Encoder(nn.Module):
 
 ## 8. decoder
 
-<img src="assets/image-20251025201856202.png" alt="image-20251025201856202" style="zoom:140%;" />
+<img src="image-20251025201856202.png" alt="image-20251025201856202" style="zoom:140%;" />
 
 
 

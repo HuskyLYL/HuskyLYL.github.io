@@ -5,14 +5,14 @@ description: 概述了llama2中分组查询注意力的实现
 tags: [AI Infra, C++, miniInfer]
 category: 推理优化
 draft: false
-cover: ./assets/image-20251027202432037.png
+cover: ./image-20251027202432037.png
 ---
 
 ## 1.什么是GQA
 
   分组查询注意力，就是Query的部分进行分组，每个组共享一组KV，GQA吧查询头分成G组，每个组内部的头部共享一个相同的K和V的组合。
 
-![image-20251027202432037](assets/image-20251027202432037.png)
+![image-20251027202432037](image-20251027202432037.png)
 
 ## 2.llama中的GQA实现
 
