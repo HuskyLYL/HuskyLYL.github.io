@@ -5,9 +5,7 @@ description: 如何利用ncu去查看我们miniInfer中的算子表现效果
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-image:
-  url: './image-20251024162209423.png'
-  alt: 'ncu分析报告'
+image: ./image-20251024162209423.png
 ---
 
 ## 1.生成启动报告

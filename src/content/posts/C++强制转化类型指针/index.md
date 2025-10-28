@@ -5,7 +5,6 @@ description: 主要面向了C++的几种强制转化类型的指针
 tags: [C++]
 category: C++
 draft: false
-cover: https://github.com/HuskyLYL/HuskyLYL.github.io/blob/main/src/contents/img/aaa.jpg
 ---
 
 ## 1. 背景

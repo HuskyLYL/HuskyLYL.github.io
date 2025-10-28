@@ -5,9 +5,7 @@ description: 动手写一个transformer，主要加深对模型的理解
 tags: [AI Infra, LLM]
 category: LLM
 draft: false
-image:
-  url: './image-20251025143144423.png'
-  alt: 'transformer架构'
+image: ./image-20251025143144423.png
 ---
 
 ## 1.transformer结构图

@@ -5,9 +5,7 @@ description: 从llama的结构出发，将model载入miniInfer
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-image:
-  url: './image-20251027102311174.png'
-  alt: 'llama2模型概述'
+image: ./image-20251027102311174.png
 ---
 
 ## 1.模型属性的初始化

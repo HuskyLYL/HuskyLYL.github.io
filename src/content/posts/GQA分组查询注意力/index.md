@@ -5,9 +5,7 @@ description: 概述了llama2中分组查询注意力的实现
 tags: [AI Infra, C++, miniInfer]
 category: 推理优化
 draft: false
-image:
-  url: './image-20251027202432037.png'
-  alt: '分组注意力查询机制'
+image: ./image-20251027202432037.png
 ---
 
 ## 1.什么是GQA
