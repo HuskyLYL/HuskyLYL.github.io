@@ -2,8 +2,8 @@
 title: ncu对程序性能进行分析
 published: 2025-10-24
 description: 如何利用ncu去查看我们miniInfer中的算子表现效果
-tags: [AI Infra, C++, miniInfer]
-category: miniInfer
+tags: [cuda]
+category: cuda
 draft: false
 image: ./image-20251024162209423.png
 ---

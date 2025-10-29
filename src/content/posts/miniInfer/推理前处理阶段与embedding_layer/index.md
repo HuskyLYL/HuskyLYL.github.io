@@ -34,6 +34,12 @@ LOG_IF(FATAL, tokens.empty()) << "The tokens is empty.";
 
 在这里，根据我们的输入的尺寸，调整我们的分词器的大小比例，然后将我们的tokens拷贝进入模型的缓存tensor之中。
 
+```c++
+llama_layers_->embedding_layer_->forward(input_tokens, input_token_num, input_embeddings));
+
+
+```
+
 
 
 

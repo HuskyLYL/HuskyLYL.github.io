@@ -2,8 +2,8 @@
 title: llama2中的分组查询注意力
 published: 2025-10-27
 description: 概述了llama2中分组查询注意力的实现
-tags: [AI Infra, C++, miniInfer]
-category: 推理优化
+tags: [LLM]
+category: LLM
 draft: false
 image: ./image-20251027202432037.png
 ---
