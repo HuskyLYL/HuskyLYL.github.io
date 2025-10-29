@@ -5,7 +5,6 @@ description: 描述了llama2中的位置编码信息的计算过程
 tags: [LLM]
 category: LLM
 draft: false
-image: ./image-20251027202432037.png
 ---
 
 ## 1.背景
