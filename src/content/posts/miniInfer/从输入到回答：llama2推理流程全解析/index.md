@@ -1,5 +1,5 @@
 ---
-title: 从输入到回答：llama2推理流程全解析
+title: llama2从输入到回答
 published: 2025-11-1
 description: 从宏观层面介绍了一个推理系统的Rollout
 tags: [AI Infra, C++, miniInfer]
