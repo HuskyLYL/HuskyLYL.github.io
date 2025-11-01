@@ -9,4 +9,4 @@ draft: false
 
 ## 1.llama2_transformer_block计算流程图
 
-<img src="image-20251031144608584.png" alt="image-20251031144608584" style="zoom:70%;" />
+![image-20251101112230011](image-20251101112230011.png)
