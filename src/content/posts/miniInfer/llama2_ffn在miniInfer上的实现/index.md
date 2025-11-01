@@ -42,7 +42,7 @@ class FeedForward(nn.Module):
 
 整体的计算流程如下图：
 
-<img src="image-20251031145840674.png" alt="image-20251031145840674" style="zoom:80%;" />
+<img src="./image-20251031145840674.png" alt="image-20251031145840674" style="zoom:80%;" />
 
 
 
