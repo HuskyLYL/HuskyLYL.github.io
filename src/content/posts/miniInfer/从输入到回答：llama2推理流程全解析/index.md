@@ -5,7 +5,7 @@ description: 从宏观层面介绍了一个推理系统的Rollout
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
 draft: false
-image:./llama2.png
+image: ./llama2.png
 ---
 
 ## 1.前言：
