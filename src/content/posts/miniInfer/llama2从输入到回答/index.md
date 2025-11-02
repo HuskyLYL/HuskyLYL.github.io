@@ -1,6 +1,6 @@
 ---
 title: llama2从输入到回答
-published: 2025-11-1
+published: 2025-11-01
 description: 从宏观层面介绍了一个推理系统的Rollout
 tags: [AI Infra, C++, miniInfer]
 category: miniInfer
