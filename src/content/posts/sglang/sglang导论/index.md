@@ -4,6 +4,7 @@ published: 2025-11-02
 description: 初步安装sglang，阐述了一些基本的理解与认知
 tags: [AI Infra, sglang]
 category: sglang
+image: ./cover.png
 draft: false
 ---
 
