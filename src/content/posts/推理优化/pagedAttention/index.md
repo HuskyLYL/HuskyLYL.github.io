@@ -1,6 +1,6 @@
 ---
 title: pagedAttention
-published: 2025-11-205
+published: 2025-11-05
 description: pagedAttention的方法由来与理解
 tags: [AI Infra, C++, miniInfer]
 category: 推理优化
