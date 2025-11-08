@@ -1,5 +1,5 @@
 ---
-title: 推理钱处理阶段与embedding_layer
+title: 推理前处理阶段与embedding_layer
 published: 2025-10-27
 description: 将我们的输入进行前置处理，并且阐述了embedding_layer层的算子运算方式
 tags: [AI Infra, C++, miniInfer]
