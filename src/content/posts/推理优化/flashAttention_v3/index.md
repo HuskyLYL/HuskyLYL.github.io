@@ -4,7 +4,7 @@ published: 2025-11-10
 description: 总结了flashAttention_v3的技术要点与拓展了相关的概念
 tags: [AI Infra, C++]
 category: 推理优化
-draft: true
+draft: false
 image: ./cover.png
 ---
 
