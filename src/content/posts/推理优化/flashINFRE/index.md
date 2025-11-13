@@ -85,13 +85,54 @@ $$
 
 
 
-## 3.flashInfer的设计：
+## 3. 块压缩稀疏行（Block Compressed Sparse Row，BSR）
+
+```c++
+//大小等于行块数目+1，表示 第 i 行之前有多少个元素
+row_ptr = [0, 2, 5, 7]
+//记录每个非零索引对应的列ID
+col_ind = [0, 3, 1, 2, 4, 1, 3]
+//data
+data
+```
 
 
 
 
 
+## 4.flashInfer
 
+### 4.1pageAttention怎么去存储BSR
+
+![image-20251113162927363](../../../../../public/assets/images/image-20251113162927363.png)
+
+- 实则这里pageTable 等价于 BSR的列索引
+- 这里稀疏矩阵的一行的大小就是整个物理矩阵的维度
+
+### 4.2为什么flashInfer要做这种模式的等价？
+
+- 统一KV Cache的存储结构，底层默认采用BSR的存储方式
+- 这样kernei只需要按照BSR的方式去计算KV Cache即可
+
+### 4.3flashInfer 对input和output的存储：ragged tensors
+
+- 就是一个不规则的张量，没什么好说的，不需要填充。
+- 本质上是因为query的请求长度不同导致的。还有output的`token by token` 生成的长度也不一致。
+- 目的是让来自不同请求的query和output紧凑地打包在同一个张量之中。
+
+### 4.4pageAttention特色：block越大（这里指的应该是query的长度），可共享的KVCache越多
+
+![image-20251113165356206](../../../../../public/assets/images/image-20251113165356206.png)
+
+- 越多的query，我们越能在KV Cache的前缀和中共享我们的内存
+- 复用的话，我们直接指向同一块索引就可以了
+
+### 4.5面向内存效率的可组合格式
+
+- 这里我的理解就是不懂稀疏矩阵数据本身，而是修改block的大小，影响到每次加载多少数据区计算attention。
+- 还是如上图，我们可以利用不同细粒度的KV组合计算，然后按照`BPT` 中的sotemax分块计算，最后结果组合即可得到最终的结果
+
+**总结**：整个计算不是单个的blockSize，而是多个blockSIze的混合，最大化提高内存利用效率。
 
 
 
