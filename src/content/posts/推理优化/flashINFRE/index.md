@@ -134,9 +134,332 @@ data
 
 **总结**：整个计算不是单个的blockSize，而是多个blockSIze的混合，最大化提高内存利用效率。
 
+### 4.6全局内存到共享内存的迁移
+
+- FlashInfer 注意力模板支持任意块的大小，由于块的大小可能和张量核心（Tensor Core）不匹配，所以需要专门的数据加载方案。
+
+  ![image-20251114105428032](../../../../../public/assets/images/image-20251114105428032.png)
+
+- 无论在稀疏矩阵中KV-Cache是连续还是稠密的
+- flashInfer都要在共享内存之中加载成紧密的
 
 
 
+## 5.FlashInfer 如何用 JIT 编译器自动生成各种 Attention 内核
+
+目的：把不同的注意力变体（softmax / sigmoid / sparse / dense / custom logits transform）用一个模板框架，以 JIT 方式生成完整 CUDA kernel。
+
+### 5.1什么是JIT
+
+在程序运行时生成 CUDA C++ 代码 → 编译成 PTX → 加载到 GPU → 立刻运行。
+PTX是cuda编译的中间语言
 
 
 
+### 5.2 python端定义注意力规格
+
+```python
+spec_decl = r"""
+template <typename Params_, typename KernelTraits_>
+struct FlashSigmoid {
+    using Params = typename Params_;
+    using KernelTraits = typename KernelTraits_;
+
+    static constexpr bool use_softmax = false;
+    float scale, bias;
+
+    FlashSigmoid(const Params& params, int batch_idx, uint8_t* smem_ptr) {
+        // Copy from CUDA constant memory to registers
+        scale = params.scale;
+        bias = params.bias;
+    }
+
+    float LogitsTransform(const Params& params,
+                          float logit_score,
+                          int batch_idx,
+                          int qo_idx,
+                          int kv_idx,
+                          int qo_head_idx,
+                          int kv_head_idx) {
+        return 1.0f / (1.0f + expf(-(logit_score * scale + bias)));
+    }
+};
+"""
+
+attn_spec = AttentionSpec(
+    "FlashSigmoid",
+    dtype_q, dtype_kv, dtype_o, idtype,
+    head_dim, is_sparse,
+    additional_vars=[("scale", "float"), ("bias", "float")],
+    additional_tensors=[],
+    spec_decl=spec_decl
+)
+
+```
+
+- LogitsTansform()是用户可以自定义的部分，用来替换softmax的处理
+- 提供一段CUDA C++ 模板代码，用于JIT的生成
+- CUDA Kernel的输入结构体
+
+
+
+### 5.3内核参数类，由flashInfer自己生成
+
+```c++
+template <typename DTypeQ, typename DTypeKV, typename DTypeO, typename IdType>
+struct Params {
+    DTypeQ* q;
+    DTypeKV *k, *v;
+    DTypeO* o;
+    float* lse;
+    IdType* qo_indptr;
+    IdType* kv_indptr;
+    IdType* kv_indices;
+    IdType* kv_seq_lens;
+};
+
+```
+
+
+
+### 5.4 注意力内核的主题
+
+```c++
+template <typename AttentionSpec>
+__global__ void KernelTemplate(AttentionSpec::Params params) {
+
+    AttentionSpec attn(params, batch_idx, smem_ptr);
+
+    // Iterate over logits tile
+    for (int i = 0; i < size(logits_tile); ++i) {
+
+        // 将线程索引转换为注意力坐标 (qo_idx, kv_idx)
+        qo_idx = get<0>(logits_tile(i));
+        kv_idx = get<1>(logits_tile(i));
+
+        // 调用自定义 logits 转换函数（可替换 softmax）
+        logits_tile(i) = attn.LogitsTransform(
+            params,
+            logits_tile(i),
+            batch_idx,
+            qo_idx,
+            kv_idx,
+            qo_head_idx,
+            kv_head_idx
+        );
+    }
+
+    ...
+}
+
+```
+
+在每个tile的循环里面调用
+
+```
+attn.LogitsTransform(...)
+```
+
+
+
+### 5.5注册Pytorch运算符
+
+```c++
+TORCH_LIBRARY_IMPL("FlashSigmoid", CUDA, m)
+```
+
+相当于在python中调用:
+
+```python
+flashinfer.flash_sigmoid(q, k, v, scale, bias)
+```
+
+FlashInfer自动：
+
+- 调用JIT编译CUDA Kernel
+- 选择合适的tile
+- 调度稀疏/密集访问
+- 执行注意力计算
+- 返回结果tensor
+
+
+
+### 5.6 内部结果定制化，中间结果多层Transformer
+
+**QueryTransform**：在注意力计算前对Query做变换
+**KeyTransform**：对key
+**ValueTransform**：对value做变换
+**OutputTransform**：对注意力的输出做变换
+**LogitsTransform**：softmax 之前对 logits（q⋅k）做修改
+**LogitsMask**：对 logits 做 mask
+
+
+
+## 6.动态感知的运行时
+
+### 6.1负载均衡
+
+![image-20251114150402818](../../../../../public/assets/images/image-20251114150402818.png)
+
+- 将工作动态均分到所有流多处理器之中
+
+### 6.2 FlashInfer 的负载均衡调度算法
+
+**输入：**  
+- $$
+  \{\, l_{\text{qo}}(i),\; l_{\text{kv}}(i) \,\}
+  $$
+
+- $$
+  Query \ \ tile 大小 T_q \ \ 代表了一次在tensor\ Core中并行处理多少数据
+  $$
+
+---
+
+### 第 1 步：定义代价函数（cost function）
+
+对一个 tile 定义代价：
+
+$$
+\text{cost}(l_q,\, l_{kv}) = \alpha \, l_q + \beta \, l_{kv}
+$$
+
+其中 alpha, beta为超参数。
+
+---
+
+### 第 2 步：计算最大 KV 分块大小
+
+对每个 tile_i，计算：
+
+$$
+L_{kv} \leftarrow 
+\max_i 
+\left\lceil 
+\frac{T_q}{l_{\text{qo}}(i)} 
+\right\rceil \cdot l_{\text{kv}}(i)
+$$
+
+---
+
+### 第 3 步：将每个 query tile 的 KV 划分为多个 chunk
+
+每个 query tile 的 KV 划分为长度不超过 $L_{kv}$ 的 chunk。
+
+为每个 chunk 分配一个工作索引 $w$，其长度为 $l_{kv}(w)$。
+
+构建集合：
+
+$$
+W = \{\, (w,\; l_{kv}(w)) \,\}
+$$
+
+并按 $l_{kv}(w)$ **降序排序**。
+
+---
+
+### 第 4 步：初始化 CTA（线程块）优先队列
+
+初始化一个最小堆优先队列：
+
+$$
+Q \leftarrow \text{PriorityQueue}\big( \{ (c,\; 0) \} \big)
+$$
+
+其中每项为 `(CTA 编号 c, 当前代价 current_cost)`。
+
+---
+
+### 第 5 步：将 chunk 依次分配给 CTA（负载均衡）
+
+当 $W \neq \varnothing$ 时，重复：
+
+1. 取出当前代价最小的 CTA：
+   $$
+   (c,\; \text{current\_cost}) = Q.\text{popmin()}
+   $$
+
+2. 从 $W$ 中取出剩余 chunk 中最长的一个：
+   $$
+   (w,\; l_{kv}(w)) = W.\text{pop()}
+   $$
+
+3. 计算新的代价：
+   $$
+   \text{new\_cost} = \text{current\_cost} + \text{cost}(T_q,\, l_{kv}(w))
+   $$
+
+4. 将 chunk $w$ 分配给 CTA $c$
+
+5. 将更新后的代价重新放回队列：
+   $$
+   Q.\text{push}\big( (c,\; \text{new\_cost}) \big)
+   $$
+
+**总结：**这里就是给每个队列一个代价，然后将当前分成的块放入代价最小的之中。
+
+
+
+![image-20251115143359364](../../../../../public/assets/images/image-20251115143359364.png)
+
+- 从图中可以看出细节，分为Contraction Kernel 和 Attention Kernel （专门计算注意力的内核和注意力合并的内核）
+- CTA在这里的含义我们可以看成线程块
+- 块的大小不固定，但是最大块的大小要固定
+- 保留reduction Map,最后合并的时候需要！
+- 简单的理解成按照CTA的数量分块
+- 取出一个代价最小的CTA,最大的块，然后将大块放入，记录Map
+- 最后按照map进行合并
+
+
+
+## 7.flashInfer的编程接口
+
+```python
+# 创建工作区缓冲区（workspace），用于存储部分输出和计划信息
+workspace = torch.empty(...)
+# 初始化序列长度信息（seqlen_info），为动态调度准备
+seqlen_info.init()
+# 编译：为每个任务信息创建 CUDAGraphs
+graphs = []
+for task_info in task_infos:
+    # 初始化：根据注意力变体规范（attn_spec）和任务信息（task_info）编译内核
+    attn = AttentionWrapper(attn_spec, task_info, workspace)
+    # 创建 CUDAGraph 对象，准备捕获 CUDA 图
+    g = torch.cuda.CUDAGraph()  # 空的计划图（Dummy plan）
+    # 计划：生成调度计划并传递给 CUDAGraph
+    attn.plan(seqlen_info) 
+    # 捕获 CUDA 图
+    with torch.cuda.graph(g):
+        for i, layer in enumerate(layers):
+            # 这里可以添加对每个层的计算
+            ...
+            # 运行注意力计算
+            attn.run(...)
+    # 将捕获的 CUDAGraph 添加到图列表中
+    graphs.append(g)
+# 运行时：根据当前情况选择最合适的 CUDAGraph
+g = select_graph(graphs)
+finished = False
+# 文本生成循环，直到生成完成
+while not finished:
+    # 更新序列长度信息（seqlen_info）
+    seqlen_info.update()
+    # 计划：为每个生成步骤重新规划，并准备播放 CUDAGraph
+    attn.plan(seqlen_info)
+    # 播放之前捕获的 CUDAGraph
+    g.replay()
+```
+
+- 一个任务一个cudaGraph
+- 根据人物信息变异内核，然后捕获CUDA图
+- 根据当前的请款相关则合适的CUDAGraph
+- 最后进行文本生成循环，直到生成完成。
+
+
+
+## 8.总结：
+
+- flashInfer给我的经验主要在调度。
+- 然后提供了一套编程框架思路上，然而最关键的核心还是flashAttention的分块思想！
+- 调度策略与分块矩阵组合的思想可以结合。
+- 最后统一了稀疏矩阵的输入方式。
