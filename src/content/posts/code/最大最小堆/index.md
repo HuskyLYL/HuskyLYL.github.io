@@ -5,7 +5,6 @@ description: 最大最小堆模板
 tags: [C++, code]
 category: code
 draft: false
-image: ./cover.png
 ---
 
 ## 1.上浮操作
