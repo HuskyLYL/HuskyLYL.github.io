@@ -40,36 +40,36 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
   // 根据config的页面开关动态生成项目、技能、经历菜单项
   const otherChildren: NavBarLink[] = [];
 
-  if (siteConfig.pages.projects) {
-    otherChildren.push({
-      name: "我的项目",
-      url: "/projects/",
-      icon: "material-symbols:work",
-    });
-  }
+  //if (siteConfig.pages.projects) {
+  //  otherChildren.push({
+  //    name: "我的项目",
+  //    url: "/projects/",
+  //    icon: "material-symbols:work",
+  //  });
+  //}
 
-  if (siteConfig.pages.skills) {
-    otherChildren.push({
-      name: "我的技能",
-      url: "/skills/",
-      icon: "material-symbols:psychology",
-    });
-  }
+  //if (siteConfig.pages.skills) {
+  //  otherChildren.push({
+  //    name: "我的技能",
+  //    url: "/skills/",
+  //    icon: "material-symbols:psychology",
+  //  });
+  //}
 
-  if (siteConfig.pages.timeline) {
-    otherChildren.push({
-      name: "我的经历",
-      url: "/timeline/",
-      icon: "material-symbols:timeline",
-    });
-  }
+  //if (siteConfig.pages.timeline) {
+  //  otherChildren.push({
+  //    name: "我的经历",
+  //    url: "/timeline/",
+  //    icon: "material-symbols:timeline",
+  //  });
+  //}
 
-  //links.push({
-  //  name: "关于",
-  //  url: "/content/",
-  //  icon: "material-symbols:info",
-  //  children: [LinkPreset.About, ...otherChildren],
-  //});
+ // links.push({
+ //   name: "关于",
+ //   url: "/content/",
+ //   icon: "material-symbols:info",
+ //  children: [LinkPreset.About, ...otherChildren],
+ // });
   return { links };
 };
 
