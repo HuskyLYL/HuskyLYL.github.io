@@ -56,13 +56,13 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
     });
   }
 
-  //if (siteConfig.pages.timeline) {
-  //  otherChildren.push({
-  //    name: "我的经历",
-  //    url: "/timeline/",
-  //    icon: "material-symbols:timeline",
-  //  });
-  //}
+  if (siteConfig.pages.timeline) {
+    otherChildren.push({
+      name: "我的经历",
+      url: "/timeline/",
+      icon: "material-symbols:timeline",
+    });
+  }
 
   //links.push({
   //  name: "关于",
@@ -73,4 +73,4 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
   return { links };
 };
 
-
+export const navBarConfig: NavBarConfig = getDynamicNavBarConfig();
